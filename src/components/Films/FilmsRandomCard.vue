@@ -4,7 +4,7 @@
       <div class="film__poster">
         <img src="@/assets/posters/1b67aa9a-2e4a-45af-ac98-64d6ad15b16c.jpg" alt="Film poster">
       </div>
-      <div class="film__details">
+      <div class="film__info">
         <h2 class="film__title">My Neighbor Totoro</h2>
         <p class="film__date">1988</p>
         <p class="film__description">
@@ -19,17 +19,14 @@
 </template>
 
 <script>
-import BaseCard from '@/components/Base/BaseCard.vue';
-
 export default {
   name: 'FilmsRandomCard',
-  components: { BaseCard },
 };
 </script>
 
 <style lang="scss" scoped>
 .film {
-  &__details {
+  &__info {
     max-width: 800px;
   }
 

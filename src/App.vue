@@ -6,21 +6,26 @@
       <div class="col-3">
         <films-list></films-list>
       </div>
+      <div class="col-9">
+        <films-card></films-card>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import TheHeader from '@/components/Layout/TheHeader.vue';
-import FilmsRandomCard from '@/components/Films/FilmsRandomCard.vue';
 import FilmsList from '@/components/Films/FilmsList.vue';
+import FilmsCard from '@/components/Films/FilmsCard.vue';
+import FilmsRandomCard from '@/components/Films/FilmsRandomCard.vue';
 
 export default {
   name: 'App',
   components: {
     TheHeader,
-    FilmsRandomCard,
     FilmsList,
+    FilmsCard,
+    FilmsRandomCard,
   },
 };
 </script>
@@ -28,10 +33,17 @@ export default {
 <style lang="scss">
 body {
   font-family: 'Roboto Slab', serif;
+  margin-bottom: 30px;
 }
 
 a {
   text-decoration: none;
+}
+
+button {
+  font-family: 'Roboto', sans-serif;
+  border: none;
+  cursor: pointer;
 }
 
 .film {
@@ -40,18 +52,21 @@ a {
   &__poster {
     flex-shrink: 0;
     max-width: 200px;
-    margin-right: 25px;
     border-radius: 5px;
     overflow: hidden;
 
     &--lg {
-      width: 250px;
+      max-width: 250px;
     }
 
     img {
       display: block;
       width: 100%;
     }
+  }
+
+  &__info {
+    margin-left: 25px;
   }
 
   &__title {

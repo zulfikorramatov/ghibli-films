@@ -11,11 +11,8 @@
 </template>
 
 <script>
-import BaseCard from '@/components/Base/BaseCard.vue';
-
 export default {
   name: 'FilmsList',
-  components: { BaseCard },
 };
 </script>
 
