@@ -134,7 +134,12 @@ export default class ApiService {
         youtubeLink: 'https://youtu.be/Lk5YWIbwzRE',
       },
     ];
-    return links.find((link) => link.id === id);
+
+    if (typeof id === 'string') {
+      return links.find((link) => link.id === id);
+    }
+
+    return links[id];
   };
 
   transformFilm = (film) => ({

@@ -92,7 +92,7 @@ export default {
       return xhr.status !== 404;
     },
     filmPoster() {
-      return `/posters/${this.selectedFilm.id}.jpg`;
+      return `${process.env.BASE_URL}posters/${this.selectedFilm.id}.jpg`;
     },
   },
   methods: {
