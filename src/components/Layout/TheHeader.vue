@@ -6,10 +6,14 @@
         <nav class="nav">
           <ul class="nav__list">
             <li class="nav__item">
-              <a class="nav__link" href="#">Posters</a>
+              <a class="nav__link" href="https://imgur.com/gallery/bm96l/comment/1326391141/">
+                Posters
+              </a>
             </li>
             <li class="nav__item">
-              <a class="nav__link" href="#">Illustrator</a>
+              <a class="nav__link" href="https://www.dannybeaton.com.au/">
+                Illustrator
+              </a>
             </li>
           </ul>
         </nav>

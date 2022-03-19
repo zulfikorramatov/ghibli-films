@@ -4,7 +4,21 @@
       <div class="film__poster film__poster--lg">
         <img :src="filmPoster" alt="Film poster">
       </div>
-      <button class="film__btn">Watch Trailer</button>
+      <a
+        class="film__btn"
+        v-if="videoLinks.youtubeLink"
+        :href="videoLinks.youtubeLink"
+        data-fancybox
+      >
+        Watch Trailer
+      </a>
+      <a
+        class="film__btn film__btn--black"
+        v-if="videoLinks.netflixLink"
+        :href="videoLinks.netflixLink"
+      >
+        Watch on Netflix
+      </a>
     </div>
     <div class="film__info">
       <h2 class="film__title">{{ selectedFilm.title }}</h2>
@@ -30,16 +44,44 @@
         </li>
       </ul>
       <p class="film__description">{{ selectedFilm.description }}</p>
-      <button class="film__btn film__btn--lg" v-if="!hasPoster">Watch Trailer</button>
+      <div class="film__footer" v-if="!hasPoster">
+        <a
+          class="film__btn film__btn--lg"
+          v-if="videoLinks.youtubeLink"
+          :href="videoLinks.youtubeLink"
+          data-fancybox
+        >
+          Watch Trailer
+        </a>
+        <a
+          class="film__btn film__btn--lg film__btn--black"
+          v-if="videoLinks.netflixLink"
+          :href="videoLinks.netflixLink"
+        >
+          Watch on Netflix
+        </a>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { Fancybox } from '@fancyapps/ui/src/Fancybox/Fancybox';
+import ApiService from '@/services/ApiService';
+
+Fancybox.bind('[data-fancybox]');
+
+const apiService = new ApiService();
+
 export default {
   name: 'FilmsCard',
   props: {
     selectedFilm: Object,
+  },
+  data() {
+    return {
+      videoLinks: {},
+    };
   },
   computed: {
     hasPoster() {
@@ -52,6 +94,14 @@ export default {
     filmPoster() {
       return `/posters/${this.selectedFilm.id}.jpg`;
     },
+  },
+  methods: {
+    setStaticData() {
+      this.videoLinks = apiService.getStaticData(this.selectedFilm.id);
+    },
+  },
+  mounted() {
+    this.setStaticData();
   },
 };
 </script>
@@ -77,12 +127,21 @@ export default {
     margin: 20px 0;
   }
 
+  &__footer {
+    display: flex;
+    flex-direction: column;
+    max-width: 250px;
+  }
+
   &__btn {
+    display: inline-block;
+    font-family: 'Roboto', sans-serif;
     font-size: 16px;
     line-height: 18px;
     color: #ffffff;
     padding: 10px 0;
     margin-top: 15px;
+    text-align: center;
     border-radius: 5px;
     background-color: #109CEB;
     -webkit-transition: opacity 0.2s ease;
@@ -93,6 +152,10 @@ export default {
 
     &--lg {
       padding: 10px 50px;
+    }
+
+    &--black {
+      background-color: #101010;
     }
 
     &:hover {

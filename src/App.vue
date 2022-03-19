@@ -36,8 +36,8 @@ export default {
   },
   data() {
     return {
-      selectedFilm: {},
       loading: true,
+      selectedFilm: {},
     };
   },
   methods: {
@@ -57,6 +57,12 @@ export default {
 </script>
 
 <style lang="scss">
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Roboto Slab', serif;
   margin-bottom: 30px;
@@ -67,7 +73,6 @@ a {
 }
 
 button {
-  font-family: 'Roboto', sans-serif;
   border: none;
   cursor: pointer;
 }
