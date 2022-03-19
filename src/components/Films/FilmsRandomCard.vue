@@ -1,26 +1,77 @@
 <template>
   <base-card>
-    <div class="film">
+    <the-loader v-if="loading"></the-loader>
+    <div class="film" v-else>
       <div class="film__poster">
-        <img src="/posters/1b67aa9a-2e4a-45af-ac98-64d6ad15b16c.jpg" alt="Film poster">
+        <img :src="filmPoster" alt="Film poster">
       </div>
       <div class="film__info">
-        <h2 class="film__title">My Neighbor Totoro</h2>
-        <p class="film__date">1988</p>
-        <p class="film__description">
-          Two sisters move to the country with their father in order to be closer to their
-          hospitalized mother, and discover the surrounding trees are inhabited by Totoros, magical
-          spirits of the forest. When the youngest runs away from home, the older sister seeks help
-          from the spirits to find her.
-        </p>
+        <h2 class="film__title">{{ randomFilm.title }}</h2>
+        <p class="film__date">{{ randomFilm.releaseDate }}</p>
+        <p class="film__description">{{ randomFilm.description }}</p>
       </div>
     </div>
   </base-card>
 </template>
 
 <script>
+import ApiService from '@/services/ApiService';
+
+const apiService = new ApiService();
+
 export default {
   name: 'FilmsRandomCard',
+  data() {
+    return {
+      loading: true,
+      randomFilm: {},
+      filmsIds: [
+        '2baf70d1-42bb-4437-b551-e5fed5a87abe',
+        '12cfb892-aac0-4c5b-94af-521852e46d6a',
+        '58611129-2dbc-4a81-a72f-77ddfc1b1b49',
+        'ea660b10-85c4-4ae3-8a5f-41cea3648e3e',
+        '4e236f34-b981-41c3-8c65-f8c9000b94e7',
+        'ebbb6b7c-945c-41ee-a792-de0e43191bd8',
+        '1b67aa9a-2e4a-45af-ac98-64d6ad15b16c',
+        'ff24da26-a969-4f0e-ba1e-a122ead6c6e3',
+        '0440483e-ca0e-4120-8c50-4c8cd9b965d6',
+        '45204234-adfd-45cb-a505-a8e7a676b114',
+        'dc2e6bd1-8156-4886-adff-b39e6043af0c',
+        '90b72513-afd4-4570-84de-a56c312fdf81',
+        'cd3d059c-09f4-4ff3-8d63-bc765a5184fa',
+        '112c1e67-726f-40b1-ac17-6974127bb9b9',
+        '758bf02e-3122-46e0-884e-67cf83df1786',
+        '2de9426b-914a-4a06-a3a0-5e6d9d3886f6',
+        '45db04e4-304a-4933-9823-33f389e8d74d',
+        '67405111-37a5-438f-81cc-4666af60c800',
+        '578ae244-7750-4d9f-867b-f3cd3d6fecf4',
+        '5fdfb320-2a02-49a7-94ff-5ca418cae602',
+      ],
+    };
+  },
+  methods: {
+    async getFilm() {
+      this.loading = true;
+      const id = this.getRandomId();
+      this.randomFilm = await apiService.getFilm(id);
+      this.loading = false;
+    },
+    getRandomId() {
+      const randomNum = Math.floor(Math.random() * 20);
+      return this.filmsIds[randomNum];
+    },
+  },
+  computed: {
+    filmPoster() {
+      return `/posters/${this.randomFilm.id}.jpg`;
+    },
+  },
+  mounted() {
+    this.getFilm();
+    setInterval(() => {
+      this.getFilm();
+    }, 7000);
+  },
 };
 </script>
 

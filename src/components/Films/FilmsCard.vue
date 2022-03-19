@@ -9,7 +9,7 @@
     <div class="film__info">
       <h2 class="film__title">{{ selectedFilm.title }}</h2>
       <h3 class="film__subtitle">
-        {{ selectedFilm.originalTitle }} ({{ selectedFilm.originalTitleRomanised }})
+        <span>{{ selectedFilm.originalTitle }}</span> ({{ selectedFilm.originalTitleRomanised }})
       </h3>
       <ul class="film__details details">
         <li class="details__item">
@@ -63,11 +63,14 @@ export default {
   }
 
   &__subtitle {
-    font-weight: 700;
     font-size: 18px;
     line-height: 24px;
     color: #a3a3a3;
     margin-top: 10px;
+
+    span {
+      font-family: 'Roboto', sans-serif;
+    }
   }
 
   &__details {
