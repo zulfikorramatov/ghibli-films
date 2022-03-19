@@ -2,7 +2,7 @@
   <base-card>
     <div class="film">
       <div class="film__poster">
-        <img src="@/assets/posters/1b67aa9a-2e4a-45af-ac98-64d6ad15b16c.jpg" alt="Film poster">
+        <img src="/posters/1b67aa9a-2e4a-45af-ac98-64d6ad15b16c.jpg" alt="Film poster">
       </div>
       <div class="film__info">
         <h2 class="film__title">My Neighbor Totoro</h2>

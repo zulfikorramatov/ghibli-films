@@ -1,52 +1,67 @@
 <template>
-  <base-card>
-    <div class="film">
-      <div class="d-flex flex-column flex-shrink-0">
-        <div class="film__poster film__poster--lg">
-          <img src="@/assets/posters/1b67aa9a-2e4a-45af-ac98-64d6ad15b16c.jpg" alt="Film poster">
-        </div>
-        <button class="film__btn">Watch Trailer</button>
+  <div class="film">
+    <div class="d-flex flex-column flex-shrink-0 me-4" v-if="hasPoster">
+      <div class="film__poster film__poster--lg">
+        <img :src="filmPoster" alt="Film poster">
       </div>
-      <div class="film__info">
-        <h2 class="film__title">My Neighbor Totoro</h2>
-        <h3 class="film__subtitle">となりのトトロ (Tonari no Totoro)</h3>
-        <ul class="film__details details">
-          <li class="details__item">
-            <span class="details__key">Release date:</span>
-            <span class="details__value">1988</span>
-          </li>
-          <li class="details__item">
-            <span class="details__key">Directed by:</span>
-            <span class="details__value">Hayao Miyazaki</span>
-          </li>
-          <li class="details__item">
-            <span class="details__key">Produced by:</span>
-            <span class="details__value">Hayao Miyazaki</span>
-          </li>
-          <li class="details__item">
-            <span class="details__key">Score:</span>
-            <span class="details__value">93</span>
-          </li>
-        </ul>
-        <p class="film__description">
-          Two sisters move to the country with their father in order to be closer to their
-          hospitalized mother, and discover the surrounding trees are inhabited by Totoros, magical
-          spirits of the forest. When the youngest runs away from home, the older sister seeks help
-          from the spirits to find her.
-        </p>
-      </div>
+      <button class="film__btn">Watch Trailer</button>
     </div>
-  </base-card>
+    <div class="film__info">
+      <h2 class="film__title">{{ selectedFilm.title }}</h2>
+      <h3 class="film__subtitle">
+        {{ selectedFilm.originalTitle }} ({{ selectedFilm.originalTitleRomanised }})
+      </h3>
+      <ul class="film__details details">
+        <li class="details__item">
+          <span class="details__key">Release date:</span>
+          <span class="details__value">{{ selectedFilm.releaseDate }}</span>
+        </li>
+        <li class="details__item">
+          <span class="details__key">Directed by:</span>
+          <span class="details__value">{{ selectedFilm.director }}</span>
+        </li>
+        <li class="details__item">
+          <span class="details__key">Produced by:</span>
+          <span class="details__value">{{ selectedFilm.producer }}</span>
+        </li>
+        <li class="details__item">
+          <span class="details__key">Score:</span>
+          <span class="details__value">{{ selectedFilm.score }}</span>
+        </li>
+      </ul>
+      <p class="film__description">{{ selectedFilm.description }}</p>
+      <button class="film__btn film__btn--lg" v-if="!hasPoster">Watch Trailer</button>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'FilmsCard',
+  props: {
+    selectedFilm: Object,
+  },
+  computed: {
+    hasPoster() {
+      const xhr = new XMLHttpRequest();
+      xhr.open('HEAD', this.filmPoster, false);
+      xhr.send();
+
+      return xhr.status !== 404;
+    },
+    filmPoster() {
+      return `/posters/${this.selectedFilm.id}.jpg`;
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .film {
+  &__info {
+    margin: 0;
+  }
+
   &__subtitle {
     font-weight: 700;
     font-size: 18px;
@@ -72,6 +87,10 @@ export default {
     -ms-transition: opacity 0.2s ease;
     -o-transition: opacity 0.2s ease;
     transition: opacity 0.2s ease;
+
+    &--lg {
+      padding: 10px 50px;
+    }
 
     &:hover {
       opacity: 0.75;

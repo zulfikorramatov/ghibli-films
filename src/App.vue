@@ -4,10 +4,13 @@
     <films-random-card></films-random-card>
     <div class="row">
       <div class="col-3">
-        <films-list></films-list>
+        <films-list @change-film="changeFilm"></films-list>
       </div>
       <div class="col-9">
-        <films-card></films-card>
+        <base-card>
+          <the-loader v-if="loading"></the-loader>
+          <films-card v-else :selectedFilm="selectedFilm"></films-card>
+        </base-card>
       </div>
     </div>
   </div>
@@ -19,6 +22,10 @@ import FilmsList from '@/components/Films/FilmsList.vue';
 import FilmsCard from '@/components/Films/FilmsCard.vue';
 import FilmsRandomCard from '@/components/Films/FilmsRandomCard.vue';
 
+import ApiService from '@/services/ApiService';
+
+const apiService = new ApiService();
+
 export default {
   name: 'App',
   components: {
@@ -26,6 +33,25 @@ export default {
     FilmsList,
     FilmsCard,
     FilmsRandomCard,
+  },
+  data() {
+    return {
+      selectedFilm: {},
+      loading: true,
+    };
+  },
+  methods: {
+    async getFilm(id) {
+      this.selectedFilm = await apiService.getFilm(id);
+      this.loading = false;
+    },
+    changeFilm(id) {
+      this.loading = true;
+      this.getFilm(id);
+    },
+  },
+  mounted() {
+    this.getFilm('67405111-37a5-438f-81cc-4666af60c800');
   },
 };
 </script>
