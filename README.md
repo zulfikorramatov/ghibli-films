@@ -1,24 +1,7 @@
-# ghibli-films
+# Studio Ghibli Films - Vue App
 
-## Project setup
-```
-npm install
-```
+![App preview!](public/preview.png "App preview")
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+An application on Vue.js 3, where Studio Ghibli films are collected. There you can also watch trailers and find a link to the Netflix page.
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+The app is not adapted for mobile devices. Forgive my laziness. 🦥
