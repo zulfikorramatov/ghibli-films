@@ -2,10 +2,10 @@ import axios from 'axios';
 
 export default class ApiService {
   getResource = async (url) => {
-    const response = await axios.get(` https://ghibliapi.herokuapp.com${url}`);
+    const response = await axios.get(` https://studioghibliapi-d6fc8.web.app${url}`);
 
     if (response.status !== 200) {
-      throw new Error(`Could not fetch https://ghibliapi.herokuapp.com${url}`);
+      throw new Error(`Could not fetch https://studioghibliapi-d6fc8.web.app${url}`);
     }
 
     return response.data;
