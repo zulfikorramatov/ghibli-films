@@ -8,6 +8,6 @@ The app is not adapted for mobile devices. Forgive my laziness. 🦥
 
 ## Related links:
 
-- [API](https://ghibliapi.herokuapp.com/)
+- [API](https://studioghibliapi-d6fc8.web.app/)
 - [Posters](https://imgur.com/gallery/bm96l/comment/1326391141/)
 - [Illustrator](https://www.dannybeaton.com.au/)
