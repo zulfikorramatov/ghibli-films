@@ -3,7 +3,11 @@
     <the-loader v-if="loading"></the-loader>
     <ul class="film-list" v-else>
       <li class="film-list__item" v-for="film in films" :key="film.id">
-        <a class="film-list__link" href="#" @click.prevent="$emit('changeFilm', film.id)">
+        <a class="film-list__link"
+           :class="{'active': film.id === selectedFilmId}"
+           href="#"
+           @click.prevent="changeFilm(film.id)"
+        >
           {{ film.title }}
         </a>
       </li>
@@ -23,12 +27,17 @@ export default {
     return {
       films: [],
       loading: true,
+      selectedFilmId: '67405111-37a5-438f-81cc-4666af60c800',
     };
   },
   methods: {
     async getFilms() {
       this.films = await apiService.getFilms('/films');
       this.loading = false;
+    },
+    changeFilm(filmId) {
+      this.selectedFilmId = filmId;
+      this.$emit('changeFilm', filmId);
     },
   },
   mounted() {
@@ -52,7 +61,7 @@ export default {
     transition: color 0.2s linear;
     border-bottom: 1px solid #a3a3a3;
 
-    &:hover {
+    &:hover, &.active {
       color: #109ceb;
     }
   }
